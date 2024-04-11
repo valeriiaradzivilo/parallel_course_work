@@ -70,7 +70,7 @@ public class ParallelOddEvenBubbleSortTest {
         BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 3)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
-        assertEquals(4, sortedArr.length);
+        assertEquals(arr.length, sortedArr.length);
         for (int i = 0; i < sortedArr.length - 1; i++) {
             assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
         }

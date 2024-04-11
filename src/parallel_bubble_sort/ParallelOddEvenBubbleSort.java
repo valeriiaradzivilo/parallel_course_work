@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-/// 100 - 2 threads
-/// 1000 - 25 threads
+/// 100 - 6,8 threads
+/// 1000 - 18 threads
+/// 10000 - 64,75 threads
+/// 100000 - 18 threads
 
 public class ParallelOddEvenBubbleSort extends Sort {
 
@@ -21,7 +24,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
 
     public BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException {
         N = arr.length;
-        MAX_THREAD = N / 2 + 1;
+        MAX_THREAD = Math.min(4, N / 2);
         return algorithm(arr);
 
     }
@@ -36,26 +39,33 @@ public class ParallelOddEvenBubbleSort extends Sort {
         boolean sortedFlag = false;
 
 
+        int iteration = 0;
+
         while (!sortedFlag) {
             sortedFlag = true;
 
-            for (int i = 1; i < N - 1; i += 2) {
-                if (sortedArr[i].getHeight() > sortedArr[i + 1].getHeight()) {
-                    list.add(new Task(sortedArr, i, i + 1));
-                    sortedFlag = false;
-                }
+            for (int i = iteration; i < N - 1; i += 2) {
+                list.add(new Task(sortedArr, i, i + 1));
             }
 
-            for (int i = 0; i < N - 1; i += 2) {
-                if (sortedArr[i].getHeight() > sortedArr[i + 1].getHeight()) {
-                    list.add(new Task(sortedArr, i, i + 1));
-                    sortedFlag = false;
+            List<Future<Boolean>> futures = executor.invokeAll(list);
+
+            try {
+                for (Future<Boolean> future : futures) {
+                    if (!future.get()) {
+                        sortedFlag = false;
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-
-            executor.invokeAll(list);
-
+            if (iteration == 0) {
+                iteration = 1;
+            } else {
+                iteration = 0;
+            }
 
             list.clear();
         }
@@ -76,7 +86,11 @@ public class ParallelOddEvenBubbleSort extends Sort {
         BookCharacter[] bestArr = new BookCharacter[N];
 
 
-        for (int j = Math.min(25, N / 100); j < N / 2 + 2; j++) {
+        for (int j = 2; j < N / 2 + 2; j++) {
+            if (N >= 10000) {
+                j--;
+                j *= 2;
+            }
             BookCharacter[] sortedArr = new BookCharacter[N];
 
             System.arraycopy(arr, 0, sortedArr, 0, N);
@@ -96,11 +110,14 @@ public class ParallelOddEvenBubbleSort extends Sort {
                 bestTime = duration;
                 bestAmountOfThreads = MAX_THREAD;
                 System.arraycopy(bestArr, 0, sortedArr, 0, N);
+                if (bestTime == 0) {
+                    break;
+                }
             }
 
         }
         System.out.println("Result: ");
-        System.out.println("Best time: " + bestTime + " with " + bestAmountOfThreads + " threads");
+        System.out.println("Best time: " + bestTime + " ms with " + bestAmountOfThreads + " threads");
         return bestArr;
 
     }

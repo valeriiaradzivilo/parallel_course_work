@@ -18,12 +18,14 @@ public class Task implements Callable<Boolean> {
 
     @Override
     public Boolean call() {
+        if (array[firstIndex].getHeight() > array[secondIndex].getHeight()) {
+            BookCharacter temp = array[firstIndex];
+            array[firstIndex] = array[secondIndex];
+            array[secondIndex] = temp;
+            return false;
 
-        BookCharacter temp = array[firstIndex];
-        array[firstIndex] = array[secondIndex];
-        array[secondIndex] = temp;
-        return false;
-
+        }
+        return true;
 
     }
 }

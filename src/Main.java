@@ -13,7 +13,7 @@ public class Main {
 
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(1000);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(10000);
 
 
         final ParallelOddEvenBubbleSort parallelSort = new ParallelOddEvenBubbleSort();

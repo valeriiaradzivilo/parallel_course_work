@@ -17,7 +17,7 @@ public class BookCharacter implements Comparable {
     public static BookCharacter[] generateRandomArray(int length) {
         BookCharacter[] array = new BookCharacter[length];
         for (int i = 0; i < length; i++) {
-            array[i] = new BookCharacter(UUID.randomUUID().toString(), (int) (Math.random() * length * 100));
+            array[i] = new BookCharacter(UUID.randomUUID().toString(), (int) (Math.random() * 100));
         }
         return array;
     }
