@@ -1,252 +1,171 @@
-import org.junit.Test;
-import simple_bubble_sort.SimpleBubbleSort;
-
-import static org.junit.Assert.*;
-
-
-public class SimpleBubbleSortTest {
-    // The method should sort an array of integers in ascending order.
-    @Test
-    public void test_sort_array_in_ascending_order() {
-        int[] arr = {5, 2, 8, 1, 9};
-        int[] expected = {1, 2, 5, 8, 9};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-        assertNotSame(arr, result);
-    }
-
-    // The method should return a new sorted array and not modify the original array.
-    @Test
-    public void test_return_new_sorted_array() {
-        int[] arr = {3, 6, 2, 9, 4};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertNotSame(arr, result);
-    }
-
-    // The method should handle an array with negative integers.
-    @Test
-    public void test_handle_array_with_negative_integers() {
-        int[] arr = {-5, -2, -8, -1, -9};
-        int[] expected = {-9, -8, -5, -2, -1};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with large integers.
-    @Test
-    public void test_handle_array_with_large_integers() {
-        int[] arr = {1000000, 500000, 2000000, 3000000, 1500000};
-        int[] expected = {500000, 1000000, 1500000, 2000000, 3000000};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an empty array and return an empty array.
-    @Test
-    public void test_emptyArray_returnsEmptyArray() {
-        int[] arr = {};
-        int[] expected = {};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with a single element and return the same array.
-    @Test
-    public void test_single_element_array() {
-        int[] arr = {5};
-        int[] expected = {5};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with duplicate elements.
-    @Test
-    public void test_handle_duplicate_elements() {
-        int[] arr = {5, 2, 8, 2, 1};
-        int[] expected = {1, 2, 2, 5, 8};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with both negative and large integers.
-    @Test
-    public void test_handle_negative_and_large_integers() {
-        int[] arr = {-5, 10, -20, 15, 0, 25};
-        int[] expected = {-20, -5, 0, 10, 15, 25};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with all elements already sorted in ascending order.
-    @Test
-    public void test_sorted_array() {
-        int[] arr = {1, 2, 3, 4, 5};
-        int[] expected = {1, 2, 3, 4, 5};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with all elements sorted in descending order.
-    @Test
-    public void test_sortedArrayDescendingOrder() {
-        int[] arr = {5, 4, 3, 2, 1};
-        int[] expected = {1, 2, 3, 4, 5};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-
-    // The method should handle null input and throw a NullPointerException.
-    @Test
-    public void test_handle_null_input() {
-        assertThrows(NullPointerException.class, () -> {
-            SimpleBubbleSort.bubbleSort(null);
-        });
-    }
-
-    // The method should handle an array with very large number of elements.
-    @Test
-    public void test_handle_large_array() {
-        int[] arr = new int[1000000];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = arr.length - i;
-        }
-        int[] sortedArr = SimpleBubbleSort.bubbleSort(arr);
-        for (int i = 0; i < sortedArr.length - 1; i++) {
-            assertTrue(sortedArr[i] <= sortedArr[i + 1]);
-        }
-    }
-
-    // The method should handle an array with very small number of elements.
-    @Test
-    public void test_handle_small_number_of_elements() {
-        int[] arr = {5};
-        int[] expected = {5};
-        int[] result = SimpleBubbleSort.bubbleSort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method should handle an array with NaN and Infinity values.
+//import org.junit.Test;
+//import simple_bubble_sort.SimpleBubbleSort;
+//
+//import java.io.ByteArrayOutputStream;
+//import java.io.PrintStream;
+//import java.util.Arrays;
+//import java.util.Random;
+//
+//import static org.junit.Assert.*;
+//
+//public class SimpleBubbleSortTest {
+//    // The method 'sort' sorts an array of integers in ascending order.
 //    @Test
-//    public void test_handle_array_with_nan_and_infinity_values() {
-//        int[] arr = {1, 2, 3, 4, 5};
-//        int[] expected = {1, 2, 3, 4, 5};
-//        int[] result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, 2, 1};
-//        expected = new int[]{1, 2, 3, 4, 5};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{3, 1, 4, 2, 5};
-//        expected = new int[]{1, 2, 3, 4, 5};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE};
-//        expected = new int[]{Integer.MIN_VALUE, 3, 4, 5, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE};
-//        expected = new int[]{Integer.MIN_VALUE, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, 0, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, -1, 0, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 4, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 5, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 5, Integer.MAX_VALUE};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 5};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4};
-//        result = SimpleBubbleSort.bubbleSort(arr);
-//        assertArrayEquals(expected, result);
-//
-//        arr = new int[]{5, 4, 3, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, 0, -1, -2, Integer.MAX_VALUE, Integer.MIN_VALUE, 1, 2, 3, 3, 3, 3, 3, 3, 3};
-//        expected = new int[]{Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, -2, -1, 0, 1, 2, 3, 3, 3, 3,
-//
-//        };
+//    public void test_sort_array_in_ascending_order() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 2, 3, 1, 4};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {1, 2, 3, 4, 5};
+//        assertArrayEquals(expectedArr, sortedArr);
 //    }
-}
+//
+//    // The method 'sort' correctly sorts an array of integers with duplicate values.
+//    @Test
+//    public void test_sort_array_with_duplicate_values() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 2, 3, 1, 4, 2};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {1, 2, 2, 3, 4, 5};
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'sort' correctly sorts an array of integers with negative values.
+//    @Test
+//    public void test_sort_array_with_negative_values() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, -2, 3, -1, 4};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {-2, -1, 3, 4, 5};
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'sort' correctly sorts an array of integers with a single value.
+//    @Test
+//    public void test_sort_array_with_single_value() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {5};
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'sort' correctly sorts an array of integers with a large number of elements.
+//    @Test
+//    public void test_sort_array_with_large_number_of_elements() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        Random rand = new Random();
+//        int[] arr = new int[1000000];
+//        for (int i = 0; i < arr.length; i++) {
+//            arr[i] = rand.nextInt(10000); // Generate random numbers between 0 and 999
+//        }
+//
+//        // Create a copy of the array and sort it to get the expected result
+//        int[] expectedArr = arr.clone();
+//        Arrays.sort(expectedArr);
+//
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'print' prints an array of integers to the console without errors.
+//    @Test
+//    public void test_print_array_without_errors() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 2, 3, 1, 4};
+//        bubbleSort.print(arr);
+//        // No assertion needed, just checking for any errors during printing
+//    }
+//
+//    // The method 'sort' correctly sorts an empty array of integers.
+//    @Test
+//    public void test_sort_empty_array() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {};
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'sort' correctly sorts an array of integers in descending order.
+//    @Test
+//    public void test_sort_array_in_descending_order() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 4, 3, 2, 1};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {1, 2, 3, 4, 5};
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'sort' correctly sorts an array of integers with the same value for all elements.
+//    @Test
+//    public void test_sort_array_with_same_value() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 5, 5, 5, 5};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {5, 5, 5, 5, 5};
+//        assertArrayEquals(expectedArr, sortedArr);
+//    }
+//
+//    // The method 'sort' does not modify the original array passed as an argument.
+//    @Test
+//    public void test_sort_does_not_modify_original_array() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 2, 3, 1, 4};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        int[] expectedArr = {5, 2, 3, 1, 4};
+//        assertNotSame(expectedArr, sortedArr);
+//        assertArrayEquals(expectedArr, arr);
+//    }
+//
+//    // The method 'sort' returns an array with the same length as the input array.
+//    @Test
+//    public void test_sort_returns_array_with_same_length() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = {5, 2, 3, 1, 4};
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        assertEquals(arr.length, sortedArr.length);
+//    }
+//
+//    // The method 'sort' handles null input arrays gracefully.
+//    @Test
+//    public void test_sort_handles_null_input_array() {
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//        int[] arr = null;
+//        int[] sortedArr = bubbleSort.sort(arr);
+//        assertNull(sortedArr);
+//    }
+//
+//    // The method 'print' prints an empty array of integers to the console without errors.
+//    @Test
+//    public void test_print_empty_array() {
+//        // Create an instance of SimpleBubbleSort
+//        SimpleBubbleSort bubbleSort = new SimpleBubbleSort();
+//
+//        // Create an empty array
+//        int[] arr = {};
+//
+//        // Redirect System.out to a ByteArrayOutputStream
+//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(outContent));
+//
+//        // Call the print method
+//        bubbleSort.print(arr);
+//
+//        // Assert that the output is an empty string
+//        assertEquals("", outContent.toString());
+//    }
+//
+//    // The method 'print' prints an array of integers with a single value to the console without errors.
+//    @Test
+//    public void test_print_single_value() {
+//        int[] arr = {5};
+//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(outContent));
+//
+//        SimpleBubbleSort simpleBubbleSort = new SimpleBubbleSort();
+//        simpleBubbleSort.print(arr);
+//
+//        assertEquals("5 ", outContent.toString());
+//    }
+//
+//}

@@ -1,140 +1,203 @@
+import common.BookCharacter;
 import org.junit.Test;
 import simple_bubble_sort.OddEvenBubbleSort;
+
+import java.util.Arrays;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
 public class OddEvenBubbleSortTest {
-    // The method 'sort' should correctly sort an array of integers in ascending order.
+    // The method sorts an array of BookCharacters in ascending order based on their height.
     @Test
-    public void test_sort_ascending_order() {
+    public void test_sorts_array_in_ascending_order() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7)};
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 2, 3, 1, 4};
-        int[] expected = {1, 2, 3, 4, 5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
-    }
-    
-
-    // The method 'sort' should correctly sort an array of integers with duplicate values.
-    @Test
-    public void test_sort_duplicate_values() {
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 2, 3, 1, 4, 2};
-        int[] expected = {1, 2, 2, 3, 4, 5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(3, sortedArr[0].getHeight());
+        assertEquals(5, sortedArr[1].getHeight());
+        assertEquals(7, sortedArr[2].getHeight());
     }
 
-    // The method 'sort' should correctly sort an array of integers with negative values.
+    // The method returns a sorted array of BookCharacters.
     @Test
-    public void test_sort_negative_values() {
+    public void test_returns_sorted_array() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7)};
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, -2, 3, -1, 4};
-        int[] expected = {-2, -1, 3, 4, 5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        Arrays.sort(arr);
+        assertArrayEquals(arr, sortedArr);
     }
 
-    // The method 'sort' should correctly sort an array of integers with only one element.
+    // The method can sort an array of BookCharacters with duplicate heights.
     @Test
-    public void test_sort_single_element() {
+    public void test_sorts_array_with_duplicate_heights() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 5)};
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5};
-        int[] expected = {5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(3, sortedArr[0].getHeight());
+        assertEquals(5, sortedArr[1].getHeight());
+        assertEquals(5, sortedArr[2].getHeight());
     }
 
-    // The method 'sort' should correctly sort an empty array of integers.
+    // The method can sort an array of BookCharacters with negative heights.
     @Test
-    public void test_sort_empty_array() {
+    public void test_sorts_array_with_negative_heights() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", -5), new BookCharacter("B", -3), new BookCharacter("C", -7)};
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {};
-        int[] expected = {};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(-7, sortedArr[0].getHeight());
+        assertEquals(-5, sortedArr[1].getHeight());
+        assertEquals(-3, sortedArr[2].getHeight());
     }
 
-    // The method 'sort' should correctly sort an array of integers with all elements equal.
+    // The method can sort an array of BookCharacters with only one element.
     @Test
-    public void test_sort_all_elements_equal() {
+    public void test_sorts_array_with_one_element() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", 5)};
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 5, 5, 5, 5};
-        int[] expected = {5, 5, 5, 5, 5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(5, sortedArr[0].getHeight());
     }
 
-    // The method 'sort' should correctly sort an array of integers with odd length.
+    // The method can sort an array of BookCharacters with two elements.
     @Test
-    public void test_sort_odd_length() {
+    public void test_sorts_array_with_two_elements() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3)};
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 2, 3, 1, 4};
-        int[] expected = {1, 2, 3, 4, 5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(3, sortedArr[0].getHeight());
+        assertEquals(5, sortedArr[1].getHeight());
     }
 
-    // The method 'sort' should correctly sort an array of integers with even length.
+    // The method can sort an array of BookCharacters with a large number of elements.
     @Test
-    public void test_sort_even_length() {
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 2, 3, 1};
-        int[] expected = {1, 2, 3, 5};
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method 'sort' should not modify the original array passed as argument.
-    @Test
-    public void test_sort_no_modification() {
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 2, 3, 1, 4};
-        int[] expected = {5, 2, 3, 1, 4};
-        sort.sort(arr);
-        assertArrayEquals(expected, arr);
-    }
-
-    // The method 'sort' should return an array with the same length as the original array.
-    @Test
-    public void test_sort_same_length() {
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = {5, 2, 3, 1, 4};
-        int[] result = sort.sort(arr);
-        assertEquals(arr.length, result.length);
-    }
-
-    // The method 'sort' should handle null input gracefully.
-    @Test
-    public void test_sort_null_input() {
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] arr = null;
-        assertThrows(NullPointerException.class, () -> {
-            sort.sort(arr);
-        });
-    }
-
-    // The method 'sort' should handle input with very large values.
-    @Test
-    public void test_sort_with_large_values() {
-        int[] arr = {1000000, 500000, 100000, 50000, 10000};
-        int[] expected = {10000, 50000, 100000, 500000, 1000000};
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] result = sort.sort(arr);
-        assertArrayEquals(expected, result);
-    }
-
-    // The method 'sort' should handle input with large number of elements.
-    @Test
-    public void test_sort_large_number_of_elements() {
-        int[] arr = new int[1000000];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = arr.length - i;
+    public void test_sorts_array_with_large_number_of_elements() throws InterruptedException {
+        BookCharacter[] arr = new BookCharacter[1000];
+        for (int i = 0; i < 1000; i++) {
+            arr[i] = new BookCharacter("A", i);
         }
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        int[] sortedArr = sort.sort(arr);
+        BookCharacter[] sortedArr = sort.sort(arr);
+        for (int i = 0; i < 1000; i++) {
+            assertEquals(i, sortedArr[i].getHeight());
+        }
+    }
+
+    // The method can sort an array of BookCharacters with heights equal to Integer.MAX_VALUE.
+    @Test
+    public void test_sorts_array_with_max_value_heights() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", Integer.MAX_VALUE), new BookCharacter("B", Integer.MAX_VALUE - 1), new BookCharacter("C", Integer.MAX_VALUE - 2)};
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(Integer.MAX_VALUE - 2, sortedArr[0].getHeight());
+        assertEquals(Integer.MAX_VALUE - 1, sortedArr[1].getHeight());
+        assertEquals(Integer.MAX_VALUE, sortedArr[2].getHeight());
+    }
+
+    // The method can sort an array of BookCharacters with heights equal to Integer.MIN_VALUE.
+    @Test
+    public void test_sorts_array_with_min_value_heights() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", Integer.MIN_VALUE), new BookCharacter("B", Integer.MIN_VALUE + 1), new BookCharacter("C", Integer.MIN_VALUE + 2)};
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(Integer.MIN_VALUE, sortedArr[0].getHeight());
+        assertEquals(Integer.MIN_VALUE + 1, sortedArr[1].getHeight());
+        assertEquals(Integer.MIN_VALUE + 2, sortedArr[2].getHeight());
+    }
+
+    // The method can sort an array of BookCharacters with null elements.
+    @Test
+    public void test_sorts_array_with_null_elements() throws InterruptedException {
+        BookCharacter[] arr = {null, new BookCharacter("B", 3), null};
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertNull(sortedArr);
+    }
+
+    // The method can sort an empty array of BookCharacters.
+    @Test
+    public void test_sorts_empty_array() throws InterruptedException {
+        BookCharacter[] arr = {};
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(0, sortedArr.length);
+    }
+
+    // The method can sort an array of BookCharacters with three elements.
+    @Test
+    public void test_sorts_array_with_three_elements() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7)};
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+        assertEquals(3, sortedArr[0].getHeight());
+        assertEquals(5, sortedArr[1].getHeight());
+        assertEquals(7, sortedArr[2].getHeight());
+    }
+
+    // The method does not modify the original array of BookCharacters.
+    @Test
+    public void test_does_not_modify_original_array_with_duplicates() throws InterruptedException {
+        BookCharacter[] arr = {new BookCharacter("1", 5), new BookCharacter("2", 3), new BookCharacter("3", 7), new BookCharacter("4", 3)};
+        BookCharacter[] originalArr = {new BookCharacter("1", 5), new BookCharacter("2", 3), new BookCharacter("3", 7), new BookCharacter("4", 3)};
+
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+
+        assertArrayEquals(originalArr, arr);
+
+    }
+
+    // The method has a time complexity of O(n^2).
+    @Test
+    public void test_odd_even_bubble_sort() throws InterruptedException {
+        BookCharacter[] arr = new BookCharacter[]{
+                new BookCharacter("1", 5),
+                new BookCharacter("2", 3),
+                new BookCharacter("3", 8),
+                new BookCharacter("4", 2),
+                new BookCharacter("5", 6)
+        };
+
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+
         for (int i = 0; i < sortedArr.length - 1; i++) {
-            assertTrue(sortedArr[i] <= sortedArr[i + 1]);
+            assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
+        }
+    }
+
+    // The method can handle arrays of BookCharacters with null ids.
+    @Test
+    public void test_handle_null_ids() throws InterruptedException {
+        BookCharacter[] arr = new BookCharacter[5];
+        arr[0] = new BookCharacter(null, 5);
+        arr[1] = new BookCharacter("B", 3);
+        arr[2] = new BookCharacter(null, 7);
+        arr[3] = new BookCharacter("A", 2);
+        arr[4] = new BookCharacter("C", 4);
+
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+
+        assertNull(sortedArr);
+    }
+
+
+    @Test
+    public void test_handle_large_array() throws InterruptedException {
+        int n = 100000;
+        Random rand = new Random();
+        BookCharacter[] arr = new BookCharacter[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = new BookCharacter("Id_" + n, rand.nextInt(n * 100));
+        }
+
+        OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        BookCharacter[] sortedArr = sort.sort(arr);
+
+        for (int i = 0; i < sortedArr.length - 1; i++) {
+            assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
         }
     }
 
