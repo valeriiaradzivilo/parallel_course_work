@@ -7,7 +7,7 @@ import common.SortCorrectnessCheck;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /// 100 - 3 threads
 /// 1000 - 4 threads
@@ -50,29 +50,24 @@ public class ParallelOddEvenBubbleSort extends Sort {
     }
 
     private BookCharacter[] algorithm(BookCharacter[] arr) throws InterruptedException {
-        BookCharacter[] sortedArr = new BookCharacter[N];
-        System.arraycopy(arr, 0, sortedArr, 0, N);
+        try {
+            BookCharacter[] sortedArr = new BookCharacter[N];
+            System.arraycopy(arr, 0, sortedArr, 0, N);
+            AtomicBoolean isSorted = new AtomicBoolean(false);
 
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREAD);
-        final OddEvenSort oddEvenSort = new OddEvenSort(sortedArr);
+            ExecutorService executor = Executors.newFixedThreadPool(MAX_THREAD);
 
+            while (!isSorted.get()) {
+                executor.submit(new OddEvenSort(sortedArr, isSorted, 0)).get();
+                executor.submit(new OddEvenSort(sortedArr, isSorted, 1)).get();
 
-        executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    oddEvenSort.sort();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
-        });
-
-
-        executor.shutdown();
-        executor.awaitTermination(1, TimeUnit.DAYS);
-
-        return sortedArr;
+            executor.shutdown();
+            return sortedArr;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return arr;
     }
 
     public BookCharacter[] defineFastestThreadsCount(BookCharacter[] arr) throws InterruptedException {
@@ -84,8 +79,8 @@ public class ParallelOddEvenBubbleSort extends Sort {
         BookCharacter[] bestArr = new BookCharacter[N];
 
 
-        for (int j = 2; j < N; j++) {
-            if (N >= 10000 && j > 10) {
+        for (int j = 2; j < N / 2 + 1; j++) {
+            if (N >= 10000 && j > 100) {
                 j--;
                 j += j / 2;
             }

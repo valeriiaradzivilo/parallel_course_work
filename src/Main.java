@@ -14,11 +14,8 @@ public class Main {
 
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
 
-
-        final ParallelOddEvenBubbleSort parallelSort = new ParallelOddEvenBubbleSort();
-        final BookCharacter[] parallelSortResult = parallelSort.defineFastestThreadsCount(arr);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(1000);
 
 
         long start = System.currentTimeMillis();
@@ -26,6 +23,13 @@ public class Main {
         final BookCharacter[] regularSortResult = sort.sort(arr);
         long end = System.currentTimeMillis();
         final long timeTakenRegular = end - start;
+        System.out.println("Time taken for array regular bubble sort: " + timeTakenRegular + "ms");
+
+
+        final ParallelOddEvenBubbleSort parallelSort = new ParallelOddEvenBubbleSort();
+        final BookCharacter[] parallelSortResult = parallelSort.defineFastestThreadsCount(arr);
+
+
         System.out.println("Time taken for array regular bubble sort: " + timeTakenRegular + "ms");
 
         System.out.println("Regular algorithm check passed: " + SortCorrectnessCheck.check(regularSortResult));

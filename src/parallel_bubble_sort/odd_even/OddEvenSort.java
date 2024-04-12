@@ -2,42 +2,38 @@ package parallel_bubble_sort.odd_even;
 
 import common.BookCharacter;
 
-public class OddEvenSort {
+import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class OddEvenSort implements Callable<BookCharacter[]> {
     private final Object lock = new Object();
     private final BookCharacter[] array;
-    private boolean sorted;
+    private final AtomicBoolean sorted;
 
+    private final int start;
 
-    public OddEvenSort(BookCharacter[] array) {
+    public OddEvenSort(BookCharacter[] array, AtomicBoolean sorted, int start) {
         this.array = array;
-        this.sorted = false;
+        this.sorted = sorted;
+        this.start = start;
 
     }
 
     public BookCharacter[] sort() throws InterruptedException {
-        sorted = false;
 
-        synchronized (lock) {
-            while (!sorted) {
-                sorted = true;
-
-                sort(0);
-                sort(1);
-            }
-        }
-
-        return array;
-    }
-
-    private void sort(int start) throws InterruptedException {
+        sorted.set(true);
         for (int i = start; i < array.length - 1; i += 2) {
             if (array[i].getHeight() > array[i + 1].getHeight()) {
 
                 swap(array, i, i + 1);
-                sorted = false;
+                sorted.set(false);
             }
         }
+
+
+        return array;
     }
+
 
     private void swap(BookCharacter[] arr, int i, int j) {
         BookCharacter temp = arr[i];
@@ -46,4 +42,8 @@ public class OddEvenSort {
     }
 
 
+    @Override
+    public BookCharacter[] call() throws Exception {
+        return sort();
+    }
 }
