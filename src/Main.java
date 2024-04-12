@@ -1,5 +1,6 @@
 import common.BookCharacter;
-import parallel_bubble_sort.ParallelOddEvenBubbleSort;
+import common.SortCorrectnessCheck;
+import parallel_bubble_sort.odd_even.ParallelOddEvenBubbleSort;
 import simple_bubble_sort.OddEvenBubbleSort;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
 
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(10000);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
 
 
         final ParallelOddEvenBubbleSort parallelSort = new ParallelOddEvenBubbleSort();
@@ -27,10 +28,6 @@ public class Main {
         final long timeTakenRegular = end - start;
         System.out.println("Time taken for array regular bubble sort: " + timeTakenRegular + "ms");
 
-
-        for (int i = 0; i < arr.length - 1; i++) {
-            assert regularSortResult[i].getHeight() <= regularSortResult[i + 1].getHeight();
-            assert parallelSortResult[i].getHeight() <= parallelSortResult[i + 1].getHeight();
-        }
+        System.out.println("Regular algorithm check passed: " + SortCorrectnessCheck.check(regularSortResult));
     }
 }

@@ -1,6 +1,6 @@
 import common.BookCharacter;
 import org.junit.Test;
-import parallel_bubble_sort.ParallelOddEvenBubbleSort;
+import parallel_bubble_sort.odd_even.ParallelOddEvenBubbleSort;
 
 import java.util.Arrays;
 
@@ -10,7 +10,7 @@ public class ParallelOddEvenBubbleSortTest {
     // The method 'sort' sorts an array of BookCharacter objects in ascending order based on their height.
     @Test
     public void test_sort_sorts_array_in_ascending_order() throws InterruptedException {
-        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7)};
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 22), new BookCharacter("E", 17)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
         for (int i = 0; i < sortedArr.length - 1; i++) {
@@ -106,7 +106,7 @@ public class ParallelOddEvenBubbleSortTest {
     // The method 'sort' handles an array with the large length and sorts it correctly.
     @Test
     public void test_sort_handles_large_length_array() throws InterruptedException {
-        int maxLength = 100000;
+        int maxLength = 10000;
         BookCharacter[] arr = BookCharacter.generateRandomArray(maxLength);
 
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();

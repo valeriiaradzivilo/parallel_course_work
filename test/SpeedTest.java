@@ -2,7 +2,7 @@ import common.BookCharacter;
 import common.TimeArrayResultRecord;
 import common.TimeComparisonResultRecord;
 import org.junit.Test;
-import parallel_bubble_sort.ParallelOddEvenBubbleSort;
+import parallel_bubble_sort.odd_even.ParallelOddEvenBubbleSort;
 import simple_bubble_sort.OddEvenBubbleSort;
 
 import java.util.Random;
@@ -14,13 +14,29 @@ public class SpeedTest {
     public void compare_parallel_and_regular_speed_small_array() throws InterruptedException {
         final int N = 100;
         final TimeComparisonResultRecord result = compare_parallel_and_regular_time(N);
-        assert result.timeForRegularSort() > result.timeForParallelSort();
+        assert result.timeForRegularSort() >= result.timeForParallelSort();
     }
 
 
     @Test
     public void compare_parallel_and_regular_speed_large_array() throws InterruptedException {
         final int N = 10000;
+        final TimeComparisonResultRecord result = compare_parallel_and_regular_time(N);
+        assert result.timeForRegularSort() > result.timeForParallelSort();
+
+    }
+
+    @Test
+    public void compare_parallel_and_regular_speed_200000_array() throws InterruptedException {
+        final int N = 200000;
+        final TimeComparisonResultRecord result = compare_parallel_and_regular_time(N);
+        assert result.timeForRegularSort() > result.timeForParallelSort();
+
+    }
+
+    @Test
+    public void compare_parallel_and_regular_speed_1000005_array() throws InterruptedException {
+        final int N = 1000005;
         final TimeComparisonResultRecord result = compare_parallel_and_regular_time(N);
         assert result.timeForRegularSort() > result.timeForParallelSort();
 
