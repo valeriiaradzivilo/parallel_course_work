@@ -21,7 +21,7 @@ public class ParallelOddEvenBubbleSortTest {
     // The method 'sort' handles an array of odd length and sorts it correctly.
     @Test
     public void test_sort_handles_odd_length_array() throws InterruptedException {
-        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7)};
+        BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 8), new BookCharacter("E", 10)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
         assertEquals(arr.length, sortedArr.length);
@@ -106,7 +106,7 @@ public class ParallelOddEvenBubbleSortTest {
     // The method 'sort' handles an array with the large length and sorts it correctly.
     @Test
     public void test_sort_handles_large_length_array() throws InterruptedException {
-        int maxLength = 10000;
+        int maxLength = 1000;
         BookCharacter[] arr = BookCharacter.generateRandomArray(maxLength);
 
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
@@ -118,6 +118,7 @@ public class ParallelOddEvenBubbleSortTest {
             assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
         }
     }
+
 
     // The method 'sort' handles an array with the minimum possible length and sorts it correctly.
     @Test

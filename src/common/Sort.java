@@ -18,7 +18,9 @@ public abstract class Sort {
             return null;
         }
 
-        return sortAlgorithm(arr);
+        BookCharacter[] sortedArr = new BookCharacter[arr.length];
+        System.arraycopy(arr, 0, sortedArr, 0, arr.length);
+        return sortAlgorithm(sortedArr);
     }
 
 
