@@ -35,21 +35,21 @@ public class SpeedTest {
 
     }
 
-//    @Test
-//    public void compare_parallel_and_regular_speed_200000_array() throws InterruptedException {
-//        final int N = 200000;
-//        compare_parallel_and_regular_time(N);
-//
-//
-//    }
-//
-//    @Test
-//    public void compare_parallel_and_regular_speed_1000005_array() throws InterruptedException {
-//        final int N = 1000005;
-//        compare_parallel_and_regular_time(N);
-//
-//
-//    }
+    @Test
+    public void compare_parallel_and_regular_speed_100000_array() throws InterruptedException {
+        final int N = 100000;
+        compare_parallel_and_regular_time(N);
+
+
+    }
+
+    @Test
+    public void compare_parallel_and_regular_speed_1000005_array() throws InterruptedException {
+        final int N = 15000;
+        compare_parallel_and_regular_time(N);
+
+
+    }
 
     private void compare_parallel_and_regular_time(int n) throws InterruptedException {
         BookCharacter[] arr = new BookCharacter[n];

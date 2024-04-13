@@ -16,8 +16,8 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private final Map<Integer, Integer> optimalAmountOfThreads = Map.of(
             100, 3,
             1000, 2,
-            10000, 2,
-            100000, 4
+            10000, 5,
+            100000, 30
     );
     private int N;
     private int MAX_THREAD;
@@ -35,7 +35,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private BookCharacter[] algorithm(BookCharacter[] arr) throws InterruptedException {
         N = arr.length;
 
-        ParallelSort parallelSort = new ParallelSort(arr, 0, N, N / 4);
+        ParallelSort parallelSort = new ParallelSort(arr, 0, N, 100);
         parallelSort.parallelSort(MAX_THREAD);
         return arr;
     }

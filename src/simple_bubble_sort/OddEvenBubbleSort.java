@@ -2,6 +2,8 @@ package simple_bubble_sort;
 
 import common.BookCharacter;
 
+import java.util.List;
+
 public class OddEvenBubbleSort {
 
     public BookCharacter[] sort(BookCharacter[] arr) {
@@ -41,7 +43,37 @@ public class OddEvenBubbleSort {
         return arr;
     }
 
-    public boolean arrayIsSorted(BookCharacter[] arr, int start, int end) {
+    public void sort(List<BookCharacter> list) {
+
+        boolean isSorted = false; // Initially array is unsorted
+
+        while (!isSorted) {
+            isSorted = true;
+            BookCharacter temp;
+
+            // Perform Bubble sort on odd indexed element
+            for (int i = 0; i <= list.size() - 2; i += 2) {
+                if (list.get(i).getHeight() > list.get(i + 1).getHeight()) {
+                    temp = list.get(i);
+                    list.set(i, list.get(i + 1));
+                    list.set(i + 1, temp);
+                    isSorted = false;
+                }
+            }
+
+            // Perform Bubble sort on even indexed element
+            for (int i = 1; i <= list.size() - 2; i += 2) {
+                if (list.get(i).getHeight() > list.get(i + 1).getHeight()) {
+                    temp = list.get(i);
+                    list.set(i, list.get(i + 1));
+                    list.set(i + 1, temp);
+                    isSorted = false;
+                }
+            }
+        }
+    }
+
+    public boolean arrayIsChanged(BookCharacter[] arr, int start, int end) {
         boolean changedArray = false;
         boolean isSorted = false; // Initially array is unsorted
 

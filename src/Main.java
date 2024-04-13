@@ -17,7 +17,7 @@ public class Main {
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
 
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(100);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
 
 
         long start = System.currentTimeMillis();
