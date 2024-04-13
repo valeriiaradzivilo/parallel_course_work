@@ -3,7 +3,9 @@ package parallel_bubble_sort.odd_even;
 import common.BookCharacter;
 import simple_bubble_sort.OddEvenBubbleSort;
 
-import java.util.concurrent.ForkJoinPool;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.RecursiveAction;
 
 public class ParallelSort extends RecursiveAction {
@@ -26,27 +28,34 @@ public class ParallelSort extends RecursiveAction {
             return;
         }
 
-        ForkJoinPool pool = new ForkJoinPool(threadNum);
-        pool.invoke(new ParallelSort(arr, 0, arr.length, splitValue));
+        final List<BookCharacter> list = new ArrayList<>(Arrays.asList(arr));
+        final int maxHeight = list.stream().map(BookCharacter::getHeight).max(Integer::compareTo).orElse(0);
+
+        List<BookCharacter[]> parts = new ArrayList<>(threadNum);
+        for (int i = threadNum; i > 0; i--) {
+            int maxVal = maxHeight / i;
+            if (i == 1) maxVal++;
+            final int maxValue = maxVal;
+            int minVal = 0;
+            if (i != threadNum) minVal = maxHeight / (i + 1);
+            final int minValue = minVal;
+            parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
+        }
+        invokeAll(parts.stream().map(bookCharacters -> new ParallelSort(bookCharacters, 0, bookCharacters.length, splitValue)).toList());
+
+        List<BookCharacter> sortedList = new ArrayList<>();
+        parts.forEach(part -> sortedList.addAll(Arrays.asList(part)));
+        BookCharacter[] sortedArray = sortedList.toArray(new BookCharacter[0]);
+        System.arraycopy(sortedArray, 0, arr, 0, arr.length);
 
     }
 
     @Override
-    protected void compute() {
+    public void compute() {
 
-        if (end - start <= splitValue) {
-            oddEvenSort(start, end);
-        } else {
-            int mid = start + (end - start) / 2;
-            final BookCharacter[] leftArr = new BookCharacter[mid - start];
-            final BookCharacter[] rightArr = new BookCharacter[end - mid];
-            System.arraycopy(arr, start, leftArr, 0, mid - start);
-            System.arraycopy(arr, mid, rightArr, 0, end - mid);
-            ParallelSort left = new ParallelSort(leftArr, 0, leftArr.length, splitValue);
-            ParallelSort right = new ParallelSort(rightArr, 0, rightArr.length, splitValue);
-            invokeAll(left, right);
-            merge(left.arr, right.arr);
-        }
+        oddEvenSort(0, arr.length);
+
+
     }
 
     private boolean oddEvenSort(int low, int high) {
@@ -54,20 +63,5 @@ public class ParallelSort extends RecursiveAction {
         return sort.arrayIsChanged(arr, low, high);
     }
 
-    private void merge(BookCharacter[] left, BookCharacter[] right) {
-        int i = 0, j = 0, k = 0;
-        while (i < left.length && j < right.length) {
-            if (left[i].getHeight() <= right[j].getHeight()) {
-                arr[k++] = left[i++];
-            } else {
-                arr[k++] = right[j++];
-            }
-        }
-        while (i < left.length) {
-            arr[k++] = left[i++];
-        }
-        while (j < right.length) {
-            arr[k++] = right[j++];
-        }
-    }
+
 }

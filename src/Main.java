@@ -17,7 +17,7 @@ public class Main {
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
 
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(10000);
 
 
         long start = System.currentTimeMillis();
@@ -41,7 +41,7 @@ public class Main {
 
 
     static void defineBestSplitsValue() {
-        BookCharacter[] arr = BookCharacter.generateRandomArray(1000);
+        BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         sort.defineBestSplitValue(arr);
 

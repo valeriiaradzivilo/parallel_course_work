@@ -6,18 +6,15 @@ import common.SortCorrectnessCheck;
 
 import java.util.Map;
 
-/// 100 - 3 threads
-/// 1000 - 2,3 threads
-/// 10000 - 2 threads
-/// 100000 - 4 threads
 
 public class ParallelOddEvenBubbleSort extends Sort {
 
     private final Map<Integer, Integer> optimalAmountOfThreads = Map.of(
-            100, 3,
-            1000, 2,
-            10000, 5,
-            100000, 30
+            100, 2,
+            1000, 3,
+            10000, 50,
+            100000, 95,
+            100005, 96
     );
     private int N;
     private int MAX_THREAD;
@@ -26,6 +23,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
         for (Map.Entry<Integer, Integer> entry : optimalAmountOfThreads.entrySet()) {
             if (arr.length <= entry.getKey()) {
                 MAX_THREAD = entry.getValue();
+                break;
             }
         }
         return algorithm(arr);
@@ -47,11 +45,8 @@ public class ParallelOddEvenBubbleSort extends Sort {
         BookCharacter[] bestArr = new BookCharacter[N];
 
 
-        for (int j = 2; j < N / 2 + 1; j++) {
-            if (N >= 10000 && j > 100) {
-                j--;
-                j += j / 2;
-            }
+        for (int j = 50; j < 100; j++) {
+
             BookCharacter[] sortedArr = new BookCharacter[N];
 
             System.arraycopy(arr, 0, sortedArr, 0, N);
@@ -76,6 +71,8 @@ public class ParallelOddEvenBubbleSort extends Sort {
                     break;
                 }
             }
+            if (!check)
+                throw new InterruptedException("Array is not sorted correctly");
 
         }
         System.out.println("Result: ");
