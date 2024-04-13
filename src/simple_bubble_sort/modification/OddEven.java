@@ -44,14 +44,14 @@ public class OddEven {
             final int minValue = minVal;
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
-        parts.forEach(bookCharacters -> oddEvenSort(bookCharacters, 0, bookCharacters.length));
+        List<BookCharacter[]> sorted = new ArrayList<>();
+
+        parts.forEach(bookCharacters -> sorted.add(oddEvenSort(bookCharacters, 0, bookCharacters.length)));
 
         List<BookCharacter> sortedList = new ArrayList<>();
-        parts.forEach(part -> sortedList.addAll(Arrays.asList(part)));
-        BookCharacter[] sortedArray = sortedList.toArray(new BookCharacter[0]);
+        sorted.forEach(part -> sortedList.addAll(Arrays.asList(part)));
+        BookCharacter[] sortedArray = sortedList.toArray(BookCharacter[]::new);
         System.arraycopy(sortedArray, 0, arr, 0, arr.length);
-
-
     }
 
 

@@ -45,7 +45,7 @@ public class ParallelSort extends RecursiveAction {
 
         List<BookCharacter> sortedList = new ArrayList<>();
         parts.forEach(part -> sortedList.addAll(Arrays.asList(part)));
-        BookCharacter[] sortedArray = sortedList.toArray(new BookCharacter[0]);
+        BookCharacter[] sortedArray = sortedList.toArray(BookCharacter[]::new);
         System.arraycopy(sortedArray, 0, arr, 0, arr.length);
 
     }

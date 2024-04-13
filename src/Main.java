@@ -1,7 +1,6 @@
 import common.BookCharacter;
 import common.SortCorrectnessCheck;
 import parallel_bubble_sort.odd_even.ParallelOddEvenBubbleSort;
-import simple_bubble_sort.OddEvenBubbleSort;
 import simple_bubble_sort.modification.OddEvenSortSplitModification;
 
 public class Main {
@@ -17,14 +16,14 @@ public class Main {
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
 
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(10000);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
 
 
         long start = System.currentTimeMillis();
         final BookCharacter[] sortedArr = new BookCharacter[arr.length];
         System.arraycopy(arr, 0, sortedArr, 0, arr.length);
-        OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        final BookCharacter[] regularSortResult = sort.sort(sortedArr, 0, sortedArr.length);
+        OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
+        final BookCharacter[] regularSortResult = sort.sort(sortedArr);
         long end = System.currentTimeMillis();
         final long timeTakenRegular = end - start;
         System.out.println("Time taken for array regular bubble sort: " + timeTakenRegular + "ms");
