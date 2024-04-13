@@ -64,6 +64,10 @@ public class SpeedTest {
         final TimeArrayResultRecord parallelSortResult = checkParallelSort(arr);
         assertFalse(Arrays.equals(arr, parallelSortResult.array()));
 
+        for (int i = 0; i < parallelSortResult.array().length - 1; i++) {
+            assert parallelSortResult.array()[i].getHeight() <= parallelSortResult.array()[i + 1].getHeight();
+        }
+
         final TimeArrayResultRecord regSortResult = checkRegularSort(arr);
         assertFalse(Arrays.equals(arr, regSortResult.array()));
 
