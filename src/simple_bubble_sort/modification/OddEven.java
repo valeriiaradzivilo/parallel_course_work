@@ -11,10 +11,14 @@ import java.util.List;
 public class OddEven {
     int start;
     int end;
-
-    int splitValue;
-
     BookCharacter[] arr;
+    private int splitValue = 10;
+
+    public OddEven(BookCharacter[] arr, int start, int end) {
+        this.arr = arr;
+        this.start = start;
+        this.end = end;
+    }
 
     public OddEven(BookCharacter[] arr, int start, int end, int splitValue) {
         this.arr = arr;
@@ -59,23 +63,6 @@ public class OddEven {
     BookCharacter[] oddEvenSort(BookCharacter[] arr, int start, int end) {
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
         return sort.sort(arr, start, end);
-    }
-
-    void merge(BookCharacter[] left, BookCharacter[] right) {
-        int i = 0, j = 0, k = 0;
-        while (i < left.length && j < right.length) {
-            if (left[i].getHeight() <= right[j].getHeight()) {
-                arr[k++] = left[i++];
-            } else {
-                arr[k++] = right[j++];
-            }
-        }
-        while (i < left.length) {
-            arr[k++] = left[i++];
-        }
-        while (j < right.length) {
-            arr[k++] = right[j++];
-        }
     }
 
 

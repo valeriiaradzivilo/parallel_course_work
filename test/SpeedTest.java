@@ -20,6 +20,20 @@ public class SpeedTest {
 
     }
 
+    @Test
+    public void compare_parallel_and_regular_speed_30000_array() throws InterruptedException {
+        final int N = 30000;
+        compare_parallel_and_regular_time(N);
+
+    }
+
+    @Test
+    public void compare_parallel_and_regular_speed_40000_array() throws InterruptedException {
+        final int N = 40000;
+        compare_parallel_and_regular_time(N);
+
+    }
+
 
     @Test
     public void compare_parallel_and_regular_speed_50000_array() throws InterruptedException {

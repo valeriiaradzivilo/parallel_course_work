@@ -4,32 +4,14 @@ import common.BookCharacter;
 import common.Sort;
 import common.SortCorrectnessCheck;
 
-import java.util.Map;
-
 
 public class ParallelOddEvenBubbleSort extends Sort {
-
-    private static final Map<Integer, Integer> optimalAmountOfThreads = Map.of(
-            100, 2,
-            1000, 3,
-            10000, 3,
-            20000, 6,
-            100000, 8,
-            100005, 10
-    );
     private int N;
 
-    private int SPLIT_VALUE = 4;
-    private int MAX_THREAD = optimalAmountOfThreads.values().stream().max(Integer::compareTo).orElse(2);
+    private int MAX_THREAD = 4;
 
     public BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException {
-        for (Map.Entry<Integer, Integer> entry : optimalAmountOfThreads.entrySet()) {
-            if (arr.length <= entry.getKey()) {
-                MAX_THREAD = entry.getValue();
-                break;
-            }
-        }
-        SPLIT_VALUE = 3;
+
         return algorithm(arr);
 
     }
@@ -37,7 +19,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private BookCharacter[] algorithm(BookCharacter[] arr) throws InterruptedException {
         N = arr.length;
 
-        ParallelSort parallelSort = new ParallelSort(arr, 0, N, arr.length / 4, N);
+        ParallelSort parallelSort = new ParallelSort(arr, 0, N);
         parallelSort.parallelSort(MAX_THREAD);
         return arr;
     }
@@ -49,7 +31,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
         BookCharacter[] bestArr = new BookCharacter[N];
 
 
-        for (int j = 2; j < N / 2; j++) {
+        for (int j = 2; j < 10; j++) {
 
             BookCharacter[] sortedArr = new BookCharacter[N];
 
@@ -85,27 +67,5 @@ public class ParallelOddEvenBubbleSort extends Sort {
 
     }
 
-    public void defineBestSplitValue(BookCharacter[] arr) {
-        long bestTime = Long.MAX_VALUE;
-        int bestSplitValue = 0;
-        for (int i = 2; i < arr.length; i++) {
-            System.out.println("Split value: " + i);
-            ParallelSort parallelSort = new ParallelSort(arr, 0, arr.length, i, arr.length);
-            final long startTime = System.currentTimeMillis();
-            parallelSort.parallelSort(MAX_THREAD);
-            final long endTime = System.currentTimeMillis();
-
-            if ((endTime - startTime) < bestTime) {
-                bestTime = endTime - startTime;
-                bestSplitValue = i;
-                System.out.println("Time taken for split value " + i + " is " + (endTime - startTime) + "ms");
-            }
-            if (bestTime == 0) {
-                break;
-            }
-        }
-
-        System.out.println("Best split value: " + bestSplitValue);
-    }
 
 }
