@@ -106,7 +106,7 @@ public class ParallelOddEvenBubbleSortTest {
     // The method 'sort' handles an array with the large length and sorts it correctly.
     @Test
     public void test_sort_handles_large_length_array() throws InterruptedException {
-        int maxLength = 1000;
+        int maxLength = 2000;
         BookCharacter[] arr = BookCharacter.generateRandomArray(maxLength);
 
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();

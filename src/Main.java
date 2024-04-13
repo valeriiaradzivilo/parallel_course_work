@@ -16,7 +16,7 @@ public class Main {
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
 
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(20000);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
 
 
         long start = System.currentTimeMillis();
@@ -39,10 +39,20 @@ public class Main {
     }
 
 
-    static void defineBestSplitsValue() {
+    static void defineBestSplitsValue() throws InterruptedException {
         BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
+
+        ParallelOddEvenBubbleSort parallelSort = new ParallelOddEvenBubbleSort();
+
+        parallelSort.defineBestSplitValue(arr);
+
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         sort.defineBestSplitValue(arr);
 
+
     }
+    /// Split - Polidovniy  - Parallel
+    /// 10000 - 27          - 26
+    /// 100000 - 29 за 2283 - 23 за 2245
+
 }

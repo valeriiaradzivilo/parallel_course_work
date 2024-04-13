@@ -8,7 +8,7 @@ public class OddEvenSortSplitModification extends Sort {
     protected BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException {
         BookCharacter[] sortedArr = new BookCharacter[arr.length];
         System.arraycopy(arr, 0, sortedArr, 0, arr.length);
-        OddEven oddEven = new OddEven(sortedArr, 0, arr.length, sortedArr.length / 4);
+        OddEven oddEven = new OddEven(sortedArr, 0, arr.length, 3);
         oddEven.sort();
         return sortedArr;
     }

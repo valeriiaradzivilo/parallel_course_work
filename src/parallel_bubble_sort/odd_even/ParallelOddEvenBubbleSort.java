@@ -9,16 +9,18 @@ import java.util.Map;
 
 public class ParallelOddEvenBubbleSort extends Sort {
 
-    private final Map<Integer, Integer> optimalAmountOfThreads = Map.of(
+    private static final Map<Integer, Integer> optimalAmountOfThreads = Map.of(
             100, 2,
             1000, 3,
-            10000, 4,
-            20000, 5,
+            10000, 3,
+            20000, 6,
             100000, 8,
             100005, 10
     );
     private int N;
-    private int MAX_THREAD = 10;
+
+    private int SPLIT_VALUE = 4;
+    private int MAX_THREAD = optimalAmountOfThreads.values().stream().max(Integer::compareTo).orElse(2);
 
     public BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException {
         for (Map.Entry<Integer, Integer> entry : optimalAmountOfThreads.entrySet()) {
@@ -27,6 +29,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
                 break;
             }
         }
+        SPLIT_VALUE = 3;
         return algorithm(arr);
 
     }
@@ -34,7 +37,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private BookCharacter[] algorithm(BookCharacter[] arr) throws InterruptedException {
         N = arr.length;
 
-        ParallelSort parallelSort = new ParallelSort(arr, 0, N, 100);
+        ParallelSort parallelSort = new ParallelSort(arr, 0, N, arr.length / 4, N);
         parallelSort.parallelSort(MAX_THREAD);
         return arr;
     }
@@ -80,6 +83,29 @@ public class ParallelOddEvenBubbleSort extends Sort {
         System.out.println("Best time: " + bestTime + " ms with " + bestAmountOfThreads + " threads");
         return bestArr;
 
+    }
+
+    public void defineBestSplitValue(BookCharacter[] arr) {
+        long bestTime = Long.MAX_VALUE;
+        int bestSplitValue = 0;
+        for (int i = 2; i < arr.length; i++) {
+            System.out.println("Split value: " + i);
+            ParallelSort parallelSort = new ParallelSort(arr, 0, arr.length, i, arr.length);
+            final long startTime = System.currentTimeMillis();
+            parallelSort.parallelSort(MAX_THREAD);
+            final long endTime = System.currentTimeMillis();
+
+            if ((endTime - startTime) < bestTime) {
+                bestTime = endTime - startTime;
+                bestSplitValue = i;
+                System.out.println("Time taken for split value " + i + " is " + (endTime - startTime) + "ms");
+            }
+            if (bestTime == 0) {
+                break;
+            }
+        }
+
+        System.out.println("Best split value: " + bestSplitValue);
     }
 
 }
