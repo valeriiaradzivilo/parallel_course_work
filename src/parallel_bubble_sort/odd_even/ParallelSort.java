@@ -6,7 +6,6 @@ import simple_bubble_sort.OddEvenBubbleSort;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 public class ParallelSort extends RecursiveAction {
@@ -23,7 +22,6 @@ public class ParallelSort extends RecursiveAction {
 
     public ParallelSort(BookCharacter[] arr, int start, int end) {
         this.arr = arr;
-
         this.start = start;
         this.end = end;
     }
@@ -34,7 +32,6 @@ public class ParallelSort extends RecursiveAction {
             return;
         }
         THREAD_NUM = threadNum;
-        ForkJoinPool pool = new ForkJoinPool(THREAD_NUM);
 
 
         final List<BookCharacter> list = new ArrayList<>(Arrays.asList(arr));
@@ -46,7 +43,8 @@ public class ParallelSort extends RecursiveAction {
             final float minValue = (i != threadNum) ? maxHeight / (i + 1) : 0;
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
-        parts.forEach(bookCharacters -> pool.invoke(new ParallelSort(bookCharacters, 0, bookCharacters.length)));
+        final List<ParallelSort> tasks = parts.stream().map(bookCharacters -> new ParallelSort(bookCharacters, 0, bookCharacters.length)).toList();
+        invokeAll(tasks);
         List<BookCharacter> sortedList = new ArrayList<>();
         parts.forEach(part -> sortedList.addAll(Arrays.asList(part)));
         BookCharacter[] sortedArray = sortedList.toArray(BookCharacter[]::new);
