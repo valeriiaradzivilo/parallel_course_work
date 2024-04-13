@@ -142,15 +142,13 @@ public class OddEvenSortSplitModificationTest {
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
 
         // Sort the array
-        try {
-            sort.sort(arr);
-        } catch (InterruptedException e) {
-            fail("Sorting interrupted");
-        }
+
+        final BookCharacter[] sortedArr = sort.sort(arr);
+
 
         // Check if the array is sorted
-        for (int i = 0; i < arr.length - 1; i++) {
-            assertTrue(arr[i].getHeight() <= arr[i + 1].getHeight());
+        for (int i = 0; i < sortedArr.length - 1; i++) {
+            assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
         }
     }
 

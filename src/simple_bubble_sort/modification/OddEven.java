@@ -3,8 +3,9 @@ package simple_bubble_sort.modification;
 import common.BookCharacter;
 import simple_bubble_sort.OddEvenBubbleSort;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class OddEven {
     int start;
@@ -25,32 +26,53 @@ public class OddEven {
 
     void sort() {
         if (arr.length < 100) {
-            oddEvenSort(start, end);
+            oddEvenSort(arr, start, end);
             return;
         }
         loop();
     }
 
     void loop() {
+        ArrayList<BookCharacter> sorted = new ArrayList<>(Arrays.asList(arr));
+        final int midVal = Collections.max(sorted).getHeight() / 2;
 
-        Map<Integer, Boolean> isSorted = new HashMap<>();
-        isSorted.put(0, false);
+        final ArrayList<BookCharacter> less = new ArrayList<>();
+        final ArrayList<BookCharacter> more = new ArrayList<>();
 
-        while (isSorted.containsValue(false)) {
+        for (BookCharacter bookCharacter : arr) {
+            if (bookCharacter.getHeight() < midVal) {
+                less.add(bookCharacter);
+            } else {
+                more.add(bookCharacter);
+            }
+        }
+
+        BookCharacter[] newArr = new BookCharacter[arr.length];
+        System.arraycopy(less.toArray(), 0, newArr, 0, less.size());
+        System.arraycopy(more.toArray(), 0, newArr, less.size(), more.size());
+
+        splitAndSort(newArr);
+
+        System.arraycopy(newArr, 0, arr, 0, newArr.length);
+
+    }
+
+    void splitAndSort(BookCharacter[] arr) {
+        boolean isSorted = false;
+        while (!isSorted) {
+            isSorted = true;
             for (int i = 0; i < arr.length; i += splitValue) {
                 int end = i + splitValue + 1;
                 if (end > arr.length) {
                     end = arr.length;
                 }
-                final boolean arrayChanged = oddEvenSort(i, end);
-                isSorted.put(i, !arrayChanged);
+                boolean sortedPart = oddEvenSort(arr, i, end);
+                if (sortedPart) isSorted = false;
             }
-
         }
-
     }
 
-    boolean oddEvenSort(int start, int end) {
+    boolean oddEvenSort(BookCharacter[] arr, int start, int end) {
         OddEvenBubbleSort sort = new OddEvenBubbleSort();
         return sort.arrayIsSorted(arr, start, end);
     }

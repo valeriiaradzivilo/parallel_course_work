@@ -1,21 +1,26 @@
 package parallel_bubble_sort.odd_even;
 
 import common.BookCharacter;
+import simple_bubble_sort.OddEvenBubbleSort;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 public class ParallelSort extends RecursiveAction {
 
-    private static final int THRESHOLD = 100;
+    private final int splitValue;
     private final BookCharacter[] arr;
-    private final int low;
-    private final int high;
+    private final int start;
+    private final int end;
 
-    public ParallelSort(BookCharacter[] arr, int low, int high) {
+    public ParallelSort(BookCharacter[] arr, int start, int end, int splitValue) {
         this.arr = arr;
-        this.low = low;
-        this.high = high;
+        this.start = start;
+        this.end = end;
+        this.splitValue = splitValue;
     }
 
     public void parallelSort(int threadNum) {
@@ -25,52 +30,48 @@ public class ParallelSort extends RecursiveAction {
         }
 
         ForkJoinPool pool = new ForkJoinPool(threadNum);
-        pool.invoke(new ParallelSort(arr, 0, arr.length));
+        ArrayList<BookCharacter> sorted = new ArrayList<>(Arrays.asList(arr));
+        final int midVal = Collections.max(sorted).getHeight() / 2;
+
+        final ArrayList<BookCharacter> less = new ArrayList<>();
+        final ArrayList<BookCharacter> more = new ArrayList<>();
+
+        for (BookCharacter bookCharacter : arr) {
+            if (bookCharacter.getHeight() < midVal) {
+                less.add(bookCharacter);
+            } else {
+                more.add(bookCharacter);
+            }
+        }
+
+        BookCharacter[] newArr = new BookCharacter[arr.length];
+        System.arraycopy(less.toArray(), 0, newArr, 0, less.size());
+        System.arraycopy(more.toArray(), 0, newArr, less.size(), more.size());
+
+        System.arraycopy(newArr, 0, arr, 0, newArr.length);
+
+        pool.invoke(new ParallelSort(arr, 0, arr.length, splitValue));
     }
 
     @Override
     protected void compute() {
         boolean changedArray = true;
         while (changedArray) {
-            if (high - low <= THRESHOLD) {
-                changedArray = oddEvenSort(low, high);
+            if (end - start <= splitValue) {
+                changedArray = oddEvenSort(start, end);
             } else {
-                int mid = low + (high - low) / 2;
-                ParallelSort left = new ParallelSort(arr, low, mid + 1);
-                ParallelSort right = new ParallelSort(arr, mid, high);
+                int mid = start + (end - start) / 2;
+                ParallelSort left = new ParallelSort(arr, start, mid + 1, splitValue);
+                ParallelSort right = new ParallelSort(arr, mid, end, splitValue);
                 invokeAll(left, right);
             }
         }
+
     }
 
     private boolean oddEvenSort(int low, int high) {
-        boolean isSorted = false;
-        boolean changedArray = false;
-        while (!isSorted) {
-            isSorted = true;
-            // Perform Bubble Sort on odd indexed element
-            for (int i = low; i <= high - 2; i = i + 2) {
-                if (arr[i].compareTo(arr[i + 1]) > 0) {
-                    swap(arr, i, i + 1);
-                    isSorted = false;
-                    changedArray = true;
-                }
-            }
-            // Perform Bubble Sort on even indexed element
-            for (int i = low + 1; i <= high - 2; i = i + 2) {
-                if (arr[i].compareTo(arr[i + 1]) > 0) {
-                    swap(arr, i, i + 1);
-                    isSorted = false;
-                    changedArray = true;
-                }
-            }
-        }
-        return changedArray;
+        final OddEvenBubbleSort sort = new OddEvenBubbleSort();
+        return sort.arrayIsSorted(arr, low, high);
     }
-
-    private void swap(BookCharacter[] arr, int i, int j) {
-        BookCharacter temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
+    
 }

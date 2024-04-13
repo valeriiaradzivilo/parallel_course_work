@@ -35,7 +35,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private BookCharacter[] algorithm(BookCharacter[] arr) throws InterruptedException {
         N = arr.length;
 
-        ParallelSort parallelSort = new ParallelSort(arr, 0, N);
+        ParallelSort parallelSort = new ParallelSort(arr, 0, N, N / 4);
         parallelSort.parallelSort(MAX_THREAD);
         return arr;
     }
@@ -47,7 +47,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
         BookCharacter[] bestArr = new BookCharacter[N];
 
 
-        for (int j = 4; j < N / 2 + 1; j++) {
+        for (int j = 2; j < N / 2 + 1; j++) {
             if (N >= 10000 && j > 100) {
                 j--;
                 j += j / 2;
