@@ -5,7 +5,7 @@ import java.util.UUID;
 public class BookCharacter implements Comparable {
     private final String id;
 
-    private final int height;
+    private final float height;
 
     public BookCharacter(String id, int height) {
         this.id = id;
@@ -30,14 +30,14 @@ public class BookCharacter implements Comparable {
         return id;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
     @Override
     public int compareTo(Object o) {
         if (o instanceof BookCharacter) {
-            return this.height - ((BookCharacter) o).height;
+            return (int) (this.height - ((BookCharacter) o).height);
         }
         return -1;
     }

@@ -29,16 +29,16 @@ public class ParallelSort extends RecursiveAction {
         }
 
         final List<BookCharacter> list = new ArrayList<>(Arrays.asList(arr));
-        final int maxHeight = list.stream().map(BookCharacter::getHeight).max(Integer::compareTo).orElse(0);
+        final float maxHeight = list.stream().map(BookCharacter::getHeight).max(Float::compareTo).orElse(0.0f);
 
         List<BookCharacter[]> parts = new ArrayList<>(threadNum);
         for (int i = threadNum; i > 0; i--) {
-            int maxVal = maxHeight / i;
+            float maxVal = maxHeight / i;
             if (i == 1) maxVal++;
-            final int maxValue = maxVal;
-            int minVal = 0;
+            final float maxValue = maxVal;
+            float minVal = 0;
             if (i != threadNum) minVal = maxHeight / (i + 1);
-            final int minValue = minVal;
+            final float minValue = minVal;
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
         invokeAll(parts.stream().map(bookCharacters -> new ParallelSort(bookCharacters, 0, bookCharacters.length, splitValue)).toList());

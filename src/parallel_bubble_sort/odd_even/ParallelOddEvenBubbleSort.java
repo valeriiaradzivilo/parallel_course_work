@@ -12,12 +12,13 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private final Map<Integer, Integer> optimalAmountOfThreads = Map.of(
             100, 2,
             1000, 3,
-            10000, 50,
-            100000, 95,
-            100005, 96
+            10000, 4,
+            20000, 5,
+            100000, 8,
+            100005, 10
     );
     private int N;
-    private int MAX_THREAD;
+    private int MAX_THREAD = 10;
 
     public BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException {
         for (Map.Entry<Integer, Integer> entry : optimalAmountOfThreads.entrySet()) {
@@ -45,7 +46,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
         BookCharacter[] bestArr = new BookCharacter[N];
 
 
-        for (int j = 50; j < 100; j++) {
+        for (int j = 2; j < N / 2; j++) {
 
             BookCharacter[] sortedArr = new BookCharacter[N];
 

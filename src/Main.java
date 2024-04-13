@@ -6,8 +6,8 @@ import simple_bubble_sort.modification.OddEvenSortSplitModification;
 public class Main {
     public static void main(String[] args) {
         try {
-            defineBestAmountOfThreads();
-//            defineBestSplitsValue();
+//            defineBestAmountOfThreads();
+            defineBestSplitsValue();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -16,7 +16,7 @@ public class Main {
 
     private static void defineBestAmountOfThreads() throws InterruptedException {
 
-        final BookCharacter[] arr = BookCharacter.generateRandomArray(100000);
+        final BookCharacter[] arr = BookCharacter.generateRandomArray(20000);
 
 
         long start = System.currentTimeMillis();

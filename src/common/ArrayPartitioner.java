@@ -10,7 +10,7 @@ public class ArrayPartitioner {
         List<BookCharacter[]> partitions = new ArrayList<>();
 
         // Get Max height
-        int maxHeight = Arrays.stream(arr).map(BookCharacter::getHeight).max(Integer::compare).orElse(0);
+        float maxHeight = Arrays.stream(arr).map(BookCharacter::getHeight).max(Float::compare).orElse(0.0f);
 
         int start = 0;
 

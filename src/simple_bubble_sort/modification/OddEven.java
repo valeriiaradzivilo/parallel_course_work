@@ -5,6 +5,7 @@ import simple_bubble_sort.OddEvenBubbleSort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OddEven {
@@ -33,15 +34,15 @@ public class OddEven {
     void loop() {
 
         final List<BookCharacter> list = List.of(arr);
-        final int maxHeight = list.stream().map(BookCharacter::getHeight).max(Integer::compareTo).orElse(0);
-        List<BookCharacter[]> parts = new ArrayList<>(maxHeight / splitValue);
+        final float maxHeight = Collections.max(list).getHeight();
+        List<BookCharacter[]> parts = new ArrayList<>((int) (maxHeight / splitValue));
         for (int i = arr.length / splitValue; i > 0; i--) {
-            int maxVal = maxHeight / i;
+            float maxVal = maxHeight / i;
             if (i == 1) maxVal++;
-            final int maxValue = maxVal;
-            int minVal = 0;
+            final float maxValue = maxVal;
+            float minVal = 0;
             if (i != arr.length / splitValue) minVal = maxHeight / (i + 1);
-            final int minValue = minVal;
+            final float minValue = minVal;
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
         List<BookCharacter[]> sorted = new ArrayList<>();
