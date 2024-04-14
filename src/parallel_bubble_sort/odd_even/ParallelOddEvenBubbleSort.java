@@ -19,7 +19,7 @@ public class ParallelOddEvenBubbleSort extends Sort {
     private BookCharacter[] algorithm(BookCharacter[] arr) throws InterruptedException {
         N = arr.length;
 
-        ParallelSort parallelSort = new ParallelSort(arr, 0, N);
+        ParallelSort parallelSort = new ParallelSort(arr);
         parallelSort.parallelSort(MAX_THREAD);
         return arr;
     }

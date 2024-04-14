@@ -1,5 +1,8 @@
 package common;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 public class BookCharacter implements Comparable {
@@ -7,7 +10,7 @@ public class BookCharacter implements Comparable {
 
     private final float height;
 
-    public BookCharacter(String id, int height) {
+    public BookCharacter(String id, float height) {
         this.id = id;
         if (height < 0)
             throw new IllegalArgumentException("Height cannot be negative");
@@ -17,8 +20,12 @@ public class BookCharacter implements Comparable {
     public static BookCharacter[] generateRandomArray(int length) {
         BookCharacter[] array = new BookCharacter[length];
         for (int i = 0; i < length; i++) {
-            array[i] = new BookCharacter(UUID.randomUUID().toString(), (int) (Math.random() * 100));
+            array[i] = new BookCharacter(UUID.randomUUID().toString(), i + 0.1f);
         }
+        // shuffle
+        List<BookCharacter> list = Arrays.asList(array);
+        Collections.shuffle(list);
+        array = list.toArray(array);
         return array;
     }
 

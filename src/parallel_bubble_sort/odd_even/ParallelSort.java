@@ -13,17 +13,11 @@ public class ParallelSort extends RecursiveAction {
 
     private final BookCharacter[] arr;
 
-
-    private final int start;
-    private final int end;
-
-
     int THREAD_NUM = 4;
 
-    public ParallelSort(BookCharacter[] arr, int start, int end) {
+    public ParallelSort(BookCharacter[] arr) {
         this.arr = arr;
-        this.start = start;
-        this.end = end;
+
     }
 
     public void parallelSort(int threadNum) {
@@ -43,7 +37,7 @@ public class ParallelSort extends RecursiveAction {
             final float minValue = (i != threadNum) ? maxHeight / (i + 1) : 0;
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
-        final List<ParallelSort> tasks = parts.stream().map(bookCharacters -> new ParallelSort(bookCharacters, 0, bookCharacters.length)).toList();
+        final List<ParallelSort> tasks = parts.stream().map(ParallelSort::new).toList();
         invokeAll(tasks);
         List<BookCharacter> sortedList = new ArrayList<>();
         parts.forEach(part -> sortedList.addAll(Arrays.asList(part)));
@@ -54,12 +48,11 @@ public class ParallelSort extends RecursiveAction {
     @Override
     public void compute() {
         oddEvenSort();
-
     }
 
     private void oddEvenSort() {
         final OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        sort.sort(arr, start, end);
+        sort.sort(arr);
     }
 
 
