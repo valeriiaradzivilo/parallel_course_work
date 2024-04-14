@@ -20,7 +20,7 @@ public class BookCharacter implements Comparable {
     public static BookCharacter[] generateRandomArray(int length) {
         BookCharacter[] array = new BookCharacter[length];
         for (int i = 0; i < length; i++) {
-            array[i] = new BookCharacter(UUID.randomUUID().toString(), i + 0.1f);
+            array[i] = new BookCharacter(UUID.randomUUID().toString(), i + 0.0f);
         }
         // shuffle
         List<BookCharacter> list = Arrays.asList(array);

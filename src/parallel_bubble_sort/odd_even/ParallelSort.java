@@ -6,18 +6,16 @@ import simple_bubble_sort.OddEvenBubbleSort;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ForkJoinPool;
 
-public class ParallelSort extends RecursiveAction {
-
+public class ParallelSort implements Callable<Void> {
 
     private final BookCharacter[] arr;
-
-    int THREAD_NUM = 4;
+    int THREAD_NUM = 2;
 
     public ParallelSort(BookCharacter[] arr) {
         this.arr = arr;
-
     }
 
     public void parallelSort(int threadNum) {
@@ -27,6 +25,7 @@ public class ParallelSort extends RecursiveAction {
         }
         THREAD_NUM = threadNum;
 
+        final ForkJoinPool pool = new ForkJoinPool(threadNum);
 
         final List<BookCharacter> list = new ArrayList<>(Arrays.asList(arr));
         final float maxHeight = list.stream().map(BookCharacter::getHeight).max(Float::compareTo).orElse(0.0f);
@@ -38,22 +37,21 @@ public class ParallelSort extends RecursiveAction {
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
         final List<ParallelSort> tasks = parts.stream().map(ParallelSort::new).toList();
-        invokeAll(tasks);
+        pool.invokeAll(tasks);
         List<BookCharacter> sortedList = new ArrayList<>();
-        parts.forEach(part -> sortedList.addAll(Arrays.asList(part)));
+        tasks.forEach(task -> sortedList.addAll(Arrays.asList(task.arr)));
         BookCharacter[] sortedArray = sortedList.toArray(BookCharacter[]::new);
         System.arraycopy(sortedArray, 0, arr, 0, arr.length);
     }
 
     @Override
-    public void compute() {
+    public Void call() {
         oddEvenSort();
+        return null;
     }
 
     private void oddEvenSort() {
         final OddEvenBubbleSort sort = new OddEvenBubbleSort();
         sort.sort(arr);
     }
-
-
 }
