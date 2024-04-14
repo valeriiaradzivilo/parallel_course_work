@@ -12,10 +12,18 @@ import java.util.concurrent.ForkJoinPool;
 public class ParallelSort implements Callable<Void> {
 
     private final BookCharacter[] arr;
+    private final int start;
+    private final int end;
     int THREAD_NUM = 2;
 
-    public ParallelSort(BookCharacter[] arr) {
+    public ParallelSort(BookCharacter[] arr, int start, int end) {
         this.arr = arr;
+        this.start = start;
+        this.end = end;
+    }
+
+    int getEnd() {
+        return end;
     }
 
     public void parallelSort(int threadNum) {
@@ -36,12 +44,22 @@ public class ParallelSort implements Callable<Void> {
             final float minValue = (i != threadNum) ? maxHeight / (i + 1) : 0;
             parts.add(list.stream().filter(bookCharacter -> bookCharacter.getHeight() < maxValue && bookCharacter.getHeight() >= minValue).toArray(BookCharacter[]::new));
         }
-        final List<ParallelSort> tasks = parts.stream().map(ParallelSort::new).toList();
-        pool.invokeAll(tasks);
+
         List<BookCharacter> sortedList = new ArrayList<>();
-        tasks.forEach(task -> sortedList.addAll(Arrays.asList(task.arr)));
+        parts.forEach(task -> sortedList.addAll(Arrays.asList(task)));
         BookCharacter[] sortedArray = sortedList.toArray(BookCharacter[]::new);
         System.arraycopy(sortedArray, 0, arr, 0, arr.length);
+        final List<ParallelSort> tasks = new ArrayList<>();
+        for (int i = 0; i < parts.size(); i++) {
+            if (i > 0) {
+                final int startingPoint = tasks.get(i - 1).getEnd();
+                tasks.add(new ParallelSort(arr, startingPoint, startingPoint + parts.get(i).length));
+            } else {
+                tasks.add(new ParallelSort(arr, i, parts.get(i).length));
+            }
+        }
+
+        pool.invokeAll(tasks);
     }
 
     @Override
@@ -52,6 +70,6 @@ public class ParallelSort implements Callable<Void> {
 
     private void oddEvenSort() {
         final OddEvenBubbleSort sort = new OddEvenBubbleSort();
-        sort.sort(arr);
+        sort.sort(arr, start, end);
     }
 }
