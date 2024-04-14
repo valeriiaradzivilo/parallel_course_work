@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class OddEvenSortSplitModificationTest {
     // sorts an array of BookCharacter objects using the odd-even sort algorithm
     @Test
-    public void test_sorts_array_of_BookCharacter_objects_using_odd_even_sort_algorithm() throws InterruptedException {
+    public void test_sorts_array_of_BookCharacter_objects_using_odd_even_sort_algorithm() {
         BookCharacter[] arr = BookCharacter.generateRandomArray(10);
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         BookCharacter[] sortedArr = sort.sort(arr);
@@ -19,7 +19,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles null input array by returning null
     @Test
-    public void test_handles_null_input_array_by_returning_null() throws InterruptedException {
+    public void test_handles_null_input_array_by_returning_null() {
         BookCharacter[] arr = null;
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         BookCharacter[] sortedArr = sort.sort(arr);
@@ -28,7 +28,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles empty input array by returning the same array
     @Test
-    public void test_handles_empty_input_array_by_returning_same_array() throws InterruptedException {
+    public void test_handles_empty_input_array_by_returning_same_array() {
         BookCharacter[] arr = new BookCharacter[0];
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         BookCharacter[] sortedArr = sort.sort(arr);
@@ -37,7 +37,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles input array with null elements by returning null
     @Test
-    public void test_handles_input_array_with_null_elements_by_returning_null() throws InterruptedException {
+    public void test_handles_input_array_with_null_elements_by_returning_null() {
         BookCharacter[] arr = new BookCharacter[3];
         arr[0] = new BookCharacter("1", 10);
         arr[1] = null;
@@ -49,7 +49,7 @@ public class OddEvenSortSplitModificationTest {
 
     // sorts an input array of length 2
     @Test
-    public void test_sorts_input_array_of_length_2() throws InterruptedException {
+    public void test_sorts_input_array_of_length_2() {
         BookCharacter[] arr = new BookCharacter[2];
         arr[0] = new BookCharacter("1", 20);
         arr[1] = new BookCharacter("2", 10);
@@ -61,7 +61,7 @@ public class OddEvenSortSplitModificationTest {
 
     // sorts an input array of length 3
     @Test
-    public void test_sorts_input_array_of_length_3() throws InterruptedException {
+    public void test_sorts_input_array_of_length_3() {
         BookCharacter[] arr = new BookCharacter[3];
         arr[0] = new BookCharacter("1", 20);
         arr[1] = new BookCharacter("2", 10);
@@ -74,7 +74,7 @@ public class OddEvenSortSplitModificationTest {
 
     // sorts an input array of length 1
     @Test
-    public void test_sorts_input_array_of_length_1() throws InterruptedException {
+    public void test_sorts_input_array_of_length_1() {
         BookCharacter[] arr = new BookCharacter[1];
         arr[0] = new BookCharacter("1", 10);
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
@@ -84,7 +84,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles input array with elements having null id by returning null
     @Test
-    public void test_handles_input_array_with_elements_having_null_id_by_returning_null() throws InterruptedException {
+    public void test_handles_input_array_with_elements_having_null_id_by_returning_null() {
         BookCharacter[] arr = new BookCharacter[2];
         arr[0] = new BookCharacter("1", 10);
         arr[1] = new BookCharacter(null, 20);
@@ -95,7 +95,7 @@ public class OddEvenSortSplitModificationTest {
 
     // sorts an input array of length 10
     @Test
-    public void test_sorts_input_array_of_length_10() throws InterruptedException {
+    public void test_sorts_input_array_of_length_10() {
         BookCharacter[] arr = BookCharacter.generateRandomArray(10);
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         BookCharacter[] sortedArr = sort.sort(arr);
@@ -106,7 +106,7 @@ public class OddEvenSortSplitModificationTest {
 
     // sorts an input array of length 100
     @Test
-    public void test_sorts_input_array_of_length_100() throws InterruptedException {
+    public void test_sorts_input_array_of_length_100() {
         BookCharacter[] arr = BookCharacter.generateRandomArray(100);
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         BookCharacter[] sortedArr = sort.sort(arr);
@@ -118,7 +118,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles input array with elements having the same height
     @Test
-    public void test_handles_input_array_with_elements_having_the_same_height() throws InterruptedException {
+    public void test_handles_input_array_with_elements_having_the_same_height() {
         BookCharacter[] arr = new BookCharacter[3];
         arr[0] = new BookCharacter("1", 10);
         arr[1] = new BookCharacter("2", 10);
@@ -130,7 +130,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles input array with elements having the same id
     @Test
-    public void test_handles_input_array_with_same_id() throws InterruptedException {
+    public void test_handles_input_array_with_same_id() {
         // Create an array with elements having the same id
         BookCharacter[] arr = new BookCharacter[200];
         String id = "same_id";
@@ -154,7 +154,7 @@ public class OddEvenSortSplitModificationTest {
 
     // handles input array with elements having the same height and id
     @Test
-    public void test_handles_input_array_with_same_height_and_id() throws InterruptedException {
+    public void test_handles_input_array_with_same_height_and_id() {
         // Create an array with elements having the same height and id
         BookCharacter[] arr = new BookCharacter[5];
         arr[0] = new BookCharacter("1", 10);
@@ -167,21 +167,19 @@ public class OddEvenSortSplitModificationTest {
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
 
         // Call the sort method
-        try {
-            BookCharacter[] sortedArr = sort.sort(arr);
 
-            // Assert that the array is sorted in ascending order
-            for (int i = 0; i < sortedArr.length - 1; i++) {
-                assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
-            }
-        } catch (InterruptedException e) {
-            fail("Sorting was interrupted.");
+        BookCharacter[] sortedArr = sort.sort(arr);
+
+        // Assert that the array is sorted in ascending order
+        for (int i = 0; i < sortedArr.length - 1; i++) {
+            assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
         }
+
     }
 
     // handles input array with elements having maximum allowed height
     @Test
-    public void test_handles_input_array_with_maximum_height() throws InterruptedException {
+    public void test_handles_input_array_with_maximum_height() {
         // Create an array with elements having maximum allowed height
         BookCharacter[] arr = new BookCharacter[5];
         arr[0] = new BookCharacter("1", Integer.MAX_VALUE);
@@ -194,16 +192,14 @@ public class OddEvenSortSplitModificationTest {
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
 
         // Call the sort method
-        try {
-            BookCharacter[] sortedArr = sort.sort(arr);
 
-            // Assert that the array is sorted in ascending order
-            for (int i = 0; i < sortedArr.length - 1; i++) {
-                assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
-            }
-        } catch (InterruptedException e) {
-            fail("Sorting was interrupted.");
+        BookCharacter[] sortedArr = sort.sort(arr);
+
+        // Assert that the array is sorted in ascending order
+        for (int i = 0; i < sortedArr.length - 1; i++) {
+            assertTrue(sortedArr[i].getHeight() <= sortedArr[i + 1].getHeight());
         }
+
     }
 
 }

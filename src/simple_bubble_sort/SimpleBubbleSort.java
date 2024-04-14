@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class SimpleBubbleSort extends Sort {
 
     @Override
-    protected BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException {
+    protected BookCharacter[] sortAlgorithm(BookCharacter[] arr)   {
 
         BookCharacter temp;
         boolean swappedFlag;

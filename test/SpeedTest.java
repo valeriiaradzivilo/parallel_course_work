@@ -14,21 +14,21 @@ import static org.junit.Assert.assertFalse;
 public class SpeedTest {
 
     @Test
-    public void compare_parallel_and_regular_speed_20000_array() throws InterruptedException {
+    public void compare_parallel_and_regular_speed_20000_array()   {
         final int N = 20000;
         compare_parallel_and_regular_time(N);
 
     }
 
     @Test
-    public void compare_parallel_and_regular_speed_30000_array() throws InterruptedException {
+    public void compare_parallel_and_regular_speed_30000_array()   {
         final int N = 30000;
         compare_parallel_and_regular_time(N);
 
     }
 
     @Test
-    public void compare_parallel_and_regular_speed_40000_array() throws InterruptedException {
+    public void compare_parallel_and_regular_speed_40000_array()   {
         final int N = 40000;
         compare_parallel_and_regular_time(N);
 
@@ -36,7 +36,7 @@ public class SpeedTest {
 
 
     @Test
-    public void compare_parallel_and_regular_speed_50000_array() throws InterruptedException {
+    public void compare_parallel_and_regular_speed_50000_array()   {
         final int N = 50000;
         compare_parallel_and_regular_time(N);
 
@@ -44,7 +44,7 @@ public class SpeedTest {
     }
 
     @Test
-    public void compare_parallel_and_regular_speed_100000_array() throws InterruptedException {
+    public void compare_parallel_and_regular_speed_100000_array()   {
         final int N = 100000;
         compare_parallel_and_regular_time(N);
 
@@ -52,14 +52,14 @@ public class SpeedTest {
     }
 
 //    @Test
-//    public void compare_parallel_and_regular_speed_200000_array() throws InterruptedException {
+//    public void compare_parallel_and_regular_speed_200000_array()   {
 //        final int N = 200000;
 //        compare_parallel_and_regular_time(N);
 //
 //
 //    }
 
-    private void compare_parallel_and_regular_time(int n) throws InterruptedException {
+    private void compare_parallel_and_regular_time(int n)   {
         BookCharacter[] arr = new BookCharacter[n];
         final Random rand = new Random();
         for (int i = 0; i < n; i++) {
@@ -94,7 +94,7 @@ public class SpeedTest {
     }
 
 
-    private TimeArrayResultRecord checkRegularSortWithSplitModification(BookCharacter[] arr) throws InterruptedException {
+    private TimeArrayResultRecord checkRegularSortWithSplitModification(BookCharacter[] arr)   {
         final long start = System.currentTimeMillis();
         OddEvenSortSplitModification sort = new OddEvenSortSplitModification();
         final BookCharacter[] regularSortResult = sort.sort(arr);
@@ -129,7 +129,7 @@ public class SpeedTest {
 
     }
 
-    private TimeArrayResultRecord checkParallelSort(BookCharacter[] arr) throws InterruptedException {
+    private TimeArrayResultRecord checkParallelSort(BookCharacter[] arr)   {
         ParallelOddEvenBubbleSort parallelSort = new ParallelOddEvenBubbleSort();
         final long start = System.currentTimeMillis();
         final BookCharacter[] parallelSortResult = parallelSort.sort(arr);

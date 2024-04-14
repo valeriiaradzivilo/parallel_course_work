@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public abstract class Sort {
 
-    public BookCharacter[] sort(BookCharacter[] arr) throws InterruptedException {
+    public BookCharacter[] sort(BookCharacter[] arr)   {
         if (arr == null) {
             System.out.println("The given array is null.");
             return null;
@@ -31,5 +31,5 @@ public abstract class Sort {
     }
 
 
-    protected abstract BookCharacter[] sortAlgorithm(BookCharacter[] arr) throws InterruptedException;
+    protected abstract BookCharacter[] sortAlgorithm(BookCharacter[] arr);
 }

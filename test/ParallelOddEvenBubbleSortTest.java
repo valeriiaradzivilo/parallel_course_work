@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class ParallelOddEvenBubbleSortTest {
     // The method 'sort' sorts an array of BookCharacter objects in ascending order based on their height.
     @Test
-    public void test_sort_sorts_array_in_ascending_order() throws InterruptedException {
+    public void test_sort_sorts_array_in_ascending_order()   {
         BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 22), new BookCharacter("E", 17)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -20,7 +20,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array of odd length and sorts it correctly.
     @Test
-    public void test_sort_handles_odd_length_array() throws InterruptedException {
+    public void test_sort_handles_odd_length_array()   {
         BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 8), new BookCharacter("E", 10)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -32,7 +32,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array of even length and sorts it correctly.
     @Test
-    public void test_sort_handles_even_length_array() throws InterruptedException {
+    public void test_sort_handles_even_length_array()   {
         BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 2)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -44,7 +44,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array of length 2 and sorts it correctly.
     @Test
-    public void test_sort_handles_length_2_array() throws InterruptedException {
+    public void test_sort_handles_length_2_array()   {
         BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -56,7 +56,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array of length 1 and returns the same array.
     @Test
-    public void test_sort_handles_length_1_array() throws InterruptedException {
+    public void test_sort_handles_length_1_array()   {
         BookCharacter[] arr = {new BookCharacter("A", 5)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -66,7 +66,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with duplicate heights and sorts it correctly.
     @Test
-    public void test_sort_handles_duplicate_heights_array() throws InterruptedException {
+    public void test_sort_handles_duplicate_heights_array()   {
         BookCharacter[] arr = {new BookCharacter("A", 5), new BookCharacter("B", 3), new BookCharacter("C", 7), new BookCharacter("D", 3)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -78,7 +78,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles a null input array and returns false.
     @Test
-    public void test_sort_handles_null_input_array() throws InterruptedException {
+    public void test_sort_handles_null_input_array()   {
         BookCharacter[] arr = null;
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -87,7 +87,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an empty input array and returns false.
     @Test
-    public void test_sort_handles_empty_input_array() throws InterruptedException {
+    public void test_sort_handles_empty_input_array()   {
         BookCharacter[] arr = new BookCharacter[0];
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -96,7 +96,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an input array with null elements and returns false.
     @Test
-    public void test_sort_handles_input_array_with_null_elements() throws InterruptedException {
+    public void test_sort_handles_input_array_with_null_elements()   {
         BookCharacter[] arr = {new BookCharacter("A", 5), null, new BookCharacter("C", 7)};
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
         BookCharacter[] sortedArr = sorter.sort(arr);
@@ -105,7 +105,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with the large length and sorts it correctly.
     @Test
-    public void test_sort_handles_large_length_array() throws InterruptedException {
+    public void test_sort_handles_large_length_array()   {
         int maxLength = 2000;
         BookCharacter[] arr = BookCharacter.generateRandomArray(maxLength);
 
@@ -122,7 +122,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with the minimum possible length and sorts it correctly.
     @Test
-    public void test_sort_handles_minimum_length_array() throws InterruptedException {
+    public void test_sort_handles_minimum_length_array()   {
         int minLength = 0;
         BookCharacter[] arr = new BookCharacter[minLength];
         ParallelOddEvenBubbleSort sorter = new ParallelOddEvenBubbleSort();
@@ -132,7 +132,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with negative heights and sorts it correctly.
     @Test
-    public void test_sort_handles_array_with_negative_heights() throws InterruptedException {
+    public void test_sort_handles_array_with_negative_heights()   {
         // Create an array with negative heights
         BookCharacter[] arr = new BookCharacter[5];
         assertThrows(Exception.class, () -> {
@@ -148,7 +148,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with heights equal to zero and sorts it correctly.
     @Test
-    public void test_sort_handles_array_with_zero_heights() throws InterruptedException {
+    public void test_sort_handles_array_with_zero_heights()   {
         // Create an array with heights equal to zero
         BookCharacter[] arr = new BookCharacter[4];
         arr[0] = new BookCharacter("1", 0);
@@ -170,7 +170,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with heights equal to Integer.MAX_VALUE and sorts it correctly.
     @Test
-    public void test_sort_handles_array_with_max_height_2() throws InterruptedException {
+    public void test_sort_handles_array_with_max_height_2()   {
         // Create an array with heights equal to Integer.MAX_VALUE
         BookCharacter[] arr = new BookCharacter[5];
         arr[0] = new BookCharacter("1", Integer.MAX_VALUE);
@@ -193,7 +193,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with heights equal to Integer.MIN_VALUE and sorts it correctly.
     @Test
-    public void test_sort_handles_array_with_min_value_heights() throws InterruptedException {
+    public void test_sort_handles_array_with_min_value_heights()   {
         // Create an array with heights equal to Integer.MIN_VALUE
         BookCharacter[] arr = new BookCharacter[5];
         assertThrows(Exception.class, () -> {
@@ -208,7 +208,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with heights equal to Integer.MAX_VALUE + 1 and throws an exception.
     @Test
-    public void test_sort_handles_array_with_max_height() throws InterruptedException {
+    public void test_sort_handles_array_with_max_height()   {
         BookCharacter[] arr = new BookCharacter[2];
         arr[0] = new BookCharacter("1", Integer.MAX_VALUE);
         assertThrows(Exception.class, () -> {
@@ -219,7 +219,7 @@ public class ParallelOddEvenBubbleSortTest {
 
     // The method 'sort' handles an array with heights equal to Integer.MIN_VALUE - 1 and throws an exception.
     @Test
-    public void test_sort_handles_array_with_min_value_height() throws InterruptedException {
+    public void test_sort_handles_array_with_min_value_height()   {
         // Create an array with heights equal to Integer.MIN_VALUE - 1
         BookCharacter[] arr = new BookCharacter[2];
         arr[0] = new BookCharacter("1", Integer.MIN_VALUE - 1);

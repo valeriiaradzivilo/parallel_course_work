@@ -14,13 +14,14 @@ public class ParallelSort implements Callable<Void> {
     private final BookCharacter[] arr;
     private final int start;
     private final int end;
-    int THREAD_NUM = 4;
+    int THREAD_NUM = 9;
 
     public ParallelSort(BookCharacter[] arr, int start, int end) {
         this.arr = arr;
         this.start = start;
         this.end = end;
     }
+
 
     int getEnd() {
         return end;
