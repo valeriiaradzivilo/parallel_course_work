@@ -87,6 +87,10 @@ public class SpeedTest {
         assert regularSortResult.time() >= parallelSortResult.time();
 //        assert regSortResult.time() >= parallelSortResult.time();
 
+        final double speedUp = (double) regularSortResult.time() / parallelSortResult.time();
+        System.out.println("Speed up for " + n + " array: " + speedUp);
+        assert speedUp >= 1.5;
+
     }
 
 

@@ -39,6 +39,7 @@ public class ParallelSort implements Callable<Void> {
         final float maxHeight = list.stream().map(BookCharacter::getHeight).max(Float::compareTo).orElse(0.0f);
 
         List<BookCharacter[]> parts = new ArrayList<>(threadNum);
+
         for (int i = threadNum; i > 0; i--) {
             final float maxValue = (i == 1) ? maxHeight / i + 1 : maxHeight / i;
             final float minValue = (i != threadNum) ? maxHeight / (i + 1) : 0;
@@ -49,17 +50,14 @@ public class ParallelSort implements Callable<Void> {
         parts.forEach(task -> sortedList.addAll(Arrays.asList(task)));
         BookCharacter[] sortedArray = sortedList.toArray(BookCharacter[]::new);
         System.arraycopy(sortedArray, 0, arr, 0, arr.length);
-        final List<ParallelSort> tasks = new ArrayList<>();
+        ParallelSort[] tasks = new ParallelSort[parts.size()];
         for (int i = 0; i < parts.size(); i++) {
-            if (i > 0) {
-                final int startingPoint = tasks.get(i - 1).getEnd();
-                tasks.add(new ParallelSort(arr, startingPoint, startingPoint + parts.get(i).length));
-            } else {
-                tasks.add(new ParallelSort(arr, i, parts.get(i).length));
-            }
+            final int startingPoint = i > 0 ? tasks[i - 1].getEnd() : 0;
+            tasks[i] = new ParallelSort(arr, startingPoint, startingPoint + parts.get(i).length);
+
         }
 
-        pool.invokeAll(tasks);
+        pool.invokeAll((Arrays.asList(tasks)));
     }
 
     @Override
