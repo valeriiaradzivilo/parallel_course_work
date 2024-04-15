@@ -5,8 +5,6 @@ import common.Sort;
 
 
 public class ParallelOddEvenBubbleSort extends Sort {
-    private int N;
-
     private final int MAX_THREAD = 4;
 
     public BookCharacter[] sortAlgorithm(BookCharacter[] arr) {
@@ -16,12 +14,10 @@ public class ParallelOddEvenBubbleSort extends Sort {
     }
 
     private BookCharacter[] algorithm(BookCharacter[] arr) {
-        N = arr.length;
+        final int N = arr.length;
 
         ParallelSort parallelSort = new ParallelSort(arr, 0, N);
         parallelSort.parallelSort(MAX_THREAD);
         return arr;
     }
-
-
 }

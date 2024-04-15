@@ -12,7 +12,7 @@ public class OddEven {
     int start;
     int end;
     BookCharacter[] arr;
-    private int splitValue = 9;
+    private int splitValue = 8;
 
     public OddEven(BookCharacter[] arr, int start, int end) {
         this.arr = arr;
